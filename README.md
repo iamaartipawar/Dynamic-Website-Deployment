@@ -20,7 +20,7 @@ This project helped me understand basic cloud concepts, Linux commands, and how 
  
 ## Architecture Overview
   <p align="center">
-  <img src="images/Architecdiagram.png" width="700">
+  <img src="images/Architec.png" width="700">
 </p>
 ---
 
