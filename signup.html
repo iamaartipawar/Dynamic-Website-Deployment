@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+        <style>
+/* Background animation */
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(-45deg, #0f2027, #2c5364, #1c92d2, #f2fcfe);
+    background-size: 400% 400%;
+    animation: gradientBG 10s ease infinite;
+    height: 100vh;
+}
+
+/* Gradient animation */
+@keyframes gradientBG {
+    0% {background-position: 0% 50%;}
+    50% {background-position: 100% 50%;}
+    100% {background-position: 0% 50%;}
+}
+
+h2 {
+    text-align: center;
+    color: #fff;
+    letter-spacing: 2px;
+    margin-top: 30px;
+}
+
+/* Glassmorphism Card */
+form {
+    backdrop-filter: blur(20px);
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    border: 1px solid rgba(255,255,255,0.2);
+    max-width: 420px;
+    margin: 40px auto;
+    padding: 30px;
+    box-shadow: 0 0 40px rgba(0,0,0,0.3);
+    color: white;
+}
+
+/* Labels */
+label {
+    font-size: 14px;
+    opacity: 0.8;
+}
+
+/* Inputs */
+input, textarea {
+    width: 100%;
+    padding: 12px;
+    margin-top: 6px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    border: none;
+    background: rgba(255,255,255,0.1);
+    color: white;
+    outline: none;
+    transition: 0.3s;
+}
+
+/* Glow effect on focus */
+input:focus, textarea:focus {
+    box-shadow: 0 0 10px #00f2fe, 0 0 20px #4facfe;
+    background: rgba(255,255,255,0.2);
+}
+
+/* Radio buttons spacing */
+input[type="radio"] {
+    width: auto;
+    margin-right: 5px;
+}
+
+/* Neon Button */
+input[type="submit"] {
+    background: linear-gradient(90deg, #00f2fe, #4facfe);
+    border: none;
+    padding: 12px;
+    border-radius: 30px;
+    font-weight: bold;
+    color: #000;
+    cursor: pointer;
+    transition: 0.4s;
+}
+/* Button hover */
+input[type="submit"]:hover {
+    box-shadow: 0 0 15px #00f2fe, 0 0 30px #4facfe;
+    transform: scale(1.05);
+}
+</style>
+<title>Signup Form</title>
+</head>
+<body>
+<h2>Signup Form</h2>
+<form action="submit.php" method="post">
+<label for="name">Name:</label><br>
+<input type="text" id="name" name="name" required><br><br>
+
+
+
+        <label for="email">Email:</label><br>
+<input type="email" id="email" name="email" required><br><br>
+
+
+
+        <label for="website">Website:</label><br>
+<input type="url" id="website" name="website"><br><br>
+
+
+
+        <label for="comment">Comment:</label><br>
+<textarea id="comment" name="comment" rows="4" cols="50"></textarea><br><br>
+
+        <label>Gender:</label><br>
+<input type="radio" id="female" name="gender" value="female" required>
+<label for="female">Female</label><br>
+
+
+
+        <input type="radio" id="male" name="gender" value="male">
+<label for="male">Male</label><br>
+
+
+
+        <input type="radio" id="other" name="gender" value="other">
+<label for="other">Other</label><br><br>
+
+
+
+        <input type="submit" value="Submit">
+</form>
+</body>
+</html>
+
