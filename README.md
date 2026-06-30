@@ -1,23 +1,47 @@
-# 🎵 Spotify Clone – Static Website Deployment on AWS EC2
+# 🎓 Student Registration Form – Dynamic Website on AWS EC2
 
-## 📌 Project Overview
-In this project,P I have created a Spotify-inspired static website and deployed it on an AWS EC2 instance using Amazon Linux and Nginx.
+## 💡 About This Project
 
-The main aim was to understand how a website can be hosted on a cloud server. I created the HTML, CSS, and JavaScript files directly inside the EC2 instance. For images, I used a Bash script where all images were downloaded at once using wget, which made the process faster and easier.
+In this project, I created a **Student Registration Form** as a dynamic website where user details are stored in a MySQL database.
 
-This project helped me understand basic cloud concepts, Linux commands, and how Nginx works as a web server.
+Earlier, I had only worked on static websites where data was not stored anywhere. So I wanted to understand how real applications work when a user submits a form.
+
+In this project, when a user enters their details (name, email, password), the data is sent to a PHP file and then stored in the database. This helped me understand the complete flow from frontend to backend and database.
+
+I also used CSS to design the form so that it looks clean and user-friendly instead of a plain basic form.
+
+### 📌 What I wanted to learn 
+
+- How form data is handled  
+- How PHP connects with MySQL  
+- How data is stored in database  
+- How to deploy a dynamic website on AWS EC2  
+
+✨ This is a beginner-level project, but it gave me a clear idea of how real websites manage user data.
 
 ---
 
-## 🚀 Features
-- Spotify-like UI design
-- Static website hosting on AWS
-- Nginx web server setup
-- Image download using Bash script
-- Simple and clean layout
+## 🧩 What I Built
+
+- Signup form using HTML + CSS  
+- PHP file (submit.php) to handle form submission  
+- MySQL database to store student data  
+- Hosted on AWS EC2 (Ubuntu)  
+
+Everything connected → frontend → backend → database  
 
 ---
- 
+
+## 🧰 Tools & Technologies
+
+- HTML & CSS → form design  
+- PHP → backend logic  
+- MySQL → database  
+- Apache → web server  
+- AWS EC2 (Ubuntu) → deployment  
+
+---
+
 ## Architecture Overview
   <p align="center">
   <img src="images/Architec.png" width="700">
@@ -35,13 +59,23 @@ This project helped me understand basic cloud concepts, Linux commands, and how 
 ## ⚙️ Deployment Steps
 
 ### 1. Launch EC2 Instance
-- AMI: Amazon Linux
+- AMI: Ubuntu
 - Instance Type: t2.micro (Free Tier)
 - Security Group: launch-wizard-1
   - SSH (22) → My IP
   - HTTP (80) → Anywhere
 
 
+<p align="center">
+  <img src="images/" width="700">
+</p>
+
+---
+<p align="center">
+  <img src="images/14.jpeg" width="700">
+</p>
+
+---
 <p align="center">
   <img src="images/1.jpeg" width="700">
 </p>
@@ -67,13 +101,13 @@ This project helped me understand basic cloud concepts, Linux commands, and how 
 </p>
 
 ---
+
+### 2. EC2 Login using SSH
 <p align="center">
   <img src="images/6.jpeg" width="700">
 </p>
 
 ---
-
-### 2. EC2 Login using SSH
 <p align="center">
   <img src="images/7.jpeg" width="700">
 </p>
@@ -93,83 +127,107 @@ This project helped me understand basic cloud concepts, Linux commands, and how 
 ### 3. Change Hostname
 
 ```bash
-sudo hostnamectl hostname Spotify
+sudo hostnamectl hostname Student-Registration
 ```
 ---
-### Install Nginx
+### LAMP Stack Installation and Configuration
 ```bash
-sudo yum update
-sudo yum install nginx -y
-sudo systemctl start nginx
-sudo systemctl enable nginx
-sudo systemctl status nginx
+sudo apt update
+sudo apt install apache2 mysql-server php php-fpm -y
+sudo systemctl start apache2 mysql php8.3-fpm
+sudo systemctl enable apache2 mysql php8.3-fpm
+```
+---
+## 4. Creating Project Files and Database Setup
+
+After installing all required software, I moved to the web server directory:
+
+cd /var/www/html
+
+Then I created my project files using vim editor:
+```bash
+sudo vim signup.html
+sudo vim submit.php
+```
+In signup.html, I created the form and added CSS inside the head section.
+
+In submit.php, I wrote backend code to connect with MySQL and insert user data.
+
+After that, I opened MySQL and set password for the database:
+
+```bash
+sudo mysql
+alter user root@localhost identified by 'root';
+exit
+sudo mysql -u root -p
+password=root
+```
+Then I configured database connection details like:
+username, password, host (localhost) inside submit.php.
+
+Next, I created a database and table to store user data.
+
+```bash
+create databse FCT;
+use FCT
+CREATE TABLE users (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(20),
+    email VARCHAR(100),
+    website VARCHAR(255),
+    gender VARCHAR(6),
+    comment VARCHAR(100)
+);
+desc users;
 ```
 <p align="center">
-  <img src="images/10.jpeg" width="700">
+  <img src="images/13.jpeg" width="700">
 </p>
 
 ---
+## ⚠️ Issue I Faced
 
-### 4. Delete Nginx Default File and Create New Files
+While working on this project, I got confused during MySQL connector installation.
+
+When I was trying on **Amazon Linux**, I used this command:
+
 ```bash
-sudo rm -rf index.html
+sudo yum install php8.5-mysqlnd.x86_64
 ```
+
+Later, when I was doing the same setup on **Ubuntu with Apache**, I tried using the same command, but it did not work.
+
+Then I understood that the command is different for Ubuntu, and I used:
+
+```bash
+sudo apt install php-mysql
+```
+
+At that time, I got confused between both commands, but after using the correct one, the database connection worked properly.
+
 ---
-## 💻 File Creation Process
-
-Inside the EC2 instance, I navigated to the default Nginx directory `/usr/share/nginx/html/`.
-
-In this location, I created the required project files such as index.html, style.css, and script.js using the vim editor.
-
-I added the respective HTML, CSS, and JavaScript code inside these files to build the Spotify-inspired user interface.
-
-For images, I created a Bash script and used wget commands to download all images at once.
-
-This approach helped me directly manage and deploy the project on the server without using file transfer methods.
-
-```bash
-cd /usr/share/nginx/html
-```
-
-```bash
-sudo vim index.html
-```
-
-```bash
-sudo vim style.css
-```
-
-```bash
-sudo vim script.js
-```
-```bash
-sudo vim download-images.sh
-```
-```bash
-sudo bash download-images.sh
-```
-```bash
-sudo systemctl restart nginx
-```
 ### 5. Access The Application
 1. Go to AWS EC2 Dashboard  
 2. Select your running instance  
 3. Copy the Public IP address 
 
 <p align="center">
-  <img src="images/11.jpeg" width="700">
+  <img src="images/10.jpeg" width="700">
 </p>
 
 ---
 4. Open a new Incognito window in your browser  
 
 5. Paste the IP address in the URL like this:  
-   http://<public-ip>/index.html  
+   http://<public-ip>/signup.html  
 
 6. Press Enter to view the website  
 
 <p align="center">
-  <img src="images/13.jpeg" width="700">
+  <img src="images/11.jpeg" width="700">
+</p>
+<p align="center">
+  <img src="images/12.jpeg" width="700">
 </p>
 
 ---
@@ -184,19 +242,37 @@ sudo systemctl restart nginx
 
 ---
 
-## 🚀 Next Steps
+## 📈 What Changed After This Project
 
-- Improve the UI to make it more responsive  
-- Add more features using JavaScript  
-- Connect a custom domain instead of using IP address  
-- Enable HTTPS for better security  
-- Explore container-based deployment like Docker  
+**Before:**
+
+- Only static websites  
+
+**After:**
+
+- Understand how data is stored in database  
+- Know how PHP connects with MySQL  
+- Can deploy dynamic project on cloud  
+
+---
+
+## 🌱 What I Want to Do Next
+
+- Add login system  
+- Improve UI design  
+- Add validation  
+- Store password securely  
+- Try domain + HTTPS  
 
 ---
 
 ## 📝 Final Thoughts
 
-This project gave me practical experience of deploying a static website on AWS EC2. I got to work with Nginx, Linux environment, and basic scripting. It helped me understand how real websites are hosted and managed on a server.
+This is my first dynamic project where I worked with backend and database.
+
+It is simple, but it helped me understand how real websites handle user data.
+
+🚀 Good step forward for me in web development
 
 
 
